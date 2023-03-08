@@ -207,6 +207,14 @@ If no `--git/tag` or `--git/sha` is provided, the latest tag from the Git repo w
 
 If you'd like to contribute to `bbin`, you're welcome to create [issues for ideas, feature requests, and bug reports](https://github.com/babashka/bbin/issues).
 
+### Installing a local development copy
+
+You can use `bbin` to install a development version of bbin!
+
+    bbin install . --as bbin-dev --main-opts '["-m" "babashka.bbin.cli"]'
+
+Then, simply make changes to the code, and see them reflected in the source code instantly.
+
 ## License
 
 `bbin` is released under the [MIT License](LICENSE).
