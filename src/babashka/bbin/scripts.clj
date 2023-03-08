@@ -545,8 +545,11 @@
        (into {})))
 
 (defn ls [cli-opts]
-  (-> (load-scripts cli-opts)
-      (util/pprint cli-opts)))
+  (let [scripts (load-scripts cli-opts)]
+    (cond (:pretty cli-opts) (util/pprint scripts cli-opts)
+          (:plain cli-opts)  (doseq [[k _] scripts] (println k))
+          ;; fallback to old default
+          :else              (util/pprint scripts cli-opts))))
 
 (defn bin [cli-opts]
   (println (str (util/bin-dir cli-opts))))
