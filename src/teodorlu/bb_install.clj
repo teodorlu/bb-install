@@ -65,7 +65,5 @@
 ;; 1. start fingerprinting the scripts
 ;; 2. Be able to identify whether this is a script we've installed or not
 
-
-
 (defn -main [& args]
   (apply bbin/-main args))
