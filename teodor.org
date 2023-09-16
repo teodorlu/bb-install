@@ -128,3 +128,7 @@ Let's rewrite that to use =bb script=:
 #+end_src
 
 That actually looks kind of nice.
+** A first improvement: inject fingerprint and make a speedy =list-scripts=
+1. Keep the existing =ls= command as-is
+2. Change the =install= command to add my fingerprint
+3. Write a new =list-installed= command that takes advantage of the fingerprinting
