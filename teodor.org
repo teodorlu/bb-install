@@ -80,3 +80,26 @@ bbin install . --as bb-pkg --main-opts '["-m" "teodorlu.bb-install/-main"]'
 #+end_src
 
 I think =bb pkg install= works quite well as a bb subcommand name too.
+
+Or /not/.
+This will definitely cause confusion.
+What is the difference between =bb pkg= and maven and clojars and deps.edn?
+Or not.
+This is just a subcommand.
+
+But we're not talking about /packages/ here.
+We're talking about scripts.
+
+Just =bb script install= then?
+But then, aren't any babashka scripts scripts, regardless of whether they are installed or not?
+Yes.
+But =script install= is a mechanism for /installing scripts/.
+Hmm.
+Kinda makes sense.
+
+OK, I'm trying =bb script install= for now.
+=bb-script=, here we go.
+
+#+begin_src shell
+bbin install . --as bb-script --main-opts '["-m" "teodorlu.bb-install/-main"]'
+#+end_src
