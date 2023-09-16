@@ -44,3 +44,29 @@ I'm frankly not sure.
 I'm not sure I'll be able to do this.
 When I glance at the challenge, it seems hard.
 But the only way to find out if I'm able to do this is to try.
+** Problem: =bbin= is not JVM compatible.
+Why do I believe this?
+
+I started up a JVM REPL to work on my code.
+
+The following code crashed!
+
+#+begin_src clojure
+(require '[babashka.bbin.cli :as bbin])
+#+end_src
+
+I got this error message:
+
+#+begin_src
+Execution error (FileNotFoundException) at babashka.bbin.scripts.common/eval9033$loading (common.clj:1).
+Could not locate babashka/deps__init.class, babashka/deps.clj or babashka/deps.cljc on classpath.
+#+end_src
+
+It appears:
+
+`bbin` uses `babashka.deps`.
+`babashka.deps` is provided with babashka.
+But it is not present on JVM clojure.
+*** Decision: don't use JVM REPL to develop, use bb repl.
+Why: I'm not sure I'm able to get this to work on the JVM.
+There are potential rabbit holes I don't want to go down.
