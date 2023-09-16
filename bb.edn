@@ -1,14 +1,11 @@
 {:min-bb-version "0.9.162"
- :paths ["src" "test" "test-resources" "dev"]
+ :paths ["src" "test" "test-resources"]
  :pods {org.babashka/fswatcher {:version "0.0.3"}}
  :deps {org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
                                  :git/sha "951b49b8c173244e66443b8188e3ff928a0a71e7"}
         local/deps {:local/root "."}}
  :tasks {bbin {:requires ([babashka.bbin.cli :as bbin])
                :task (apply bbin/-main *command-line-args*)}
-         dev {:doc "Starts watcher to auto-build bbin script"
-              :requires ([babashka.bbin.dev :as dev])
-              :task (dev/dev)}
          ci {:doc "Run all CI tasks locally"
              :requires ([taoensso.timbre :as log])
              :task (do
