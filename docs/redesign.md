@@ -36,7 +36,14 @@ Proposed implementation:
     3. When uninstalling, we check whether the script has been installed as a symlink.
        If it is a symlink to our share directory, we delete and cleanup both.
 
-3. Cleanly support the different places _from where_ we want to install things.
+3. Or -- delete only scripts that start with a bb shebang.
+
+    This is perhaps the best solution.
+
+    First line is a bb shebang.
+    Next line is our fingerprint.
+
+4. Cleanly support the different places _from where_ we want to install things.
 
     1. Start out by aiming to understand how `babashka/bbin` does it.
 
