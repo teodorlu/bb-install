@@ -6,17 +6,8 @@
    [babashka.fs :as fs]
    [babashka.cli :as cli]))
 
-
-(defn ^:private edn-read-string-orelse [s orelse]
-  (try (edn/read-string s)
-       (catch java.lang.RuntimeException _e
-         orelse)))
-
 (def bb-shebang "#!/usr/bin/env bb")
 (def fingerprint {:teodorlu.bb-install/fingerprint "18acc212-3ae7-4603-9720-d1b615edc2bf"})
-
-(comment
-  (edn-read-string-orelse "{:x 1" ::invalid))
 
 (defn script-fingerprint? [data]
   (= (::fingerprint data)
@@ -25,6 +16,14 @@
 (comment
   (script-fingerprint? fingerprint)
   )
+
+(defn ^:private edn-read-string-orelse [s orelse]
+  (try (edn/read-string s)
+       (catch java.lang.RuntimeException _e
+         orelse)))
+
+(comment
+  (edn-read-string-orelse "{:x 1" ::invalid))
 
 (defn installed-script-file? [s]
   (let [[first-line second-line] (str/split-lines s)]
