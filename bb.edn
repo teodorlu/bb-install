@@ -1,5 +1,4 @@
 {:paths ["src"]
  :deps {local/deps {:local/root "."}}
  :tasks {bbin {:requires ([babashka.bbin.cli :as bbin])
-               :task (apply bbin/-main *command-line-args*)}
-         lint (shell "clj-kondo --lint .")}}
+               :task (apply bbin/-main *command-line-args*)}}}
