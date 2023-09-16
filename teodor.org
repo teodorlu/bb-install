@@ -103,3 +103,28 @@ OK, I'm trying =bb script install= for now.
 #+begin_src shell
 bbin install . --as bb-script --main-opts '["-m" "teodorlu.bb-install/-main"]'
 #+end_src
+
+In that case -- =bb script= subcommand names might not make sense as they are right now.
+
+#+begin_src shell
+$ bb-script help
+Usage: bbin <command>
+
+  bbin install    Install a script
+  bbin uninstall  Remove a script
+  bbin ls         List installed scripts
+  bbin bin        Display bbin bin folder
+  bbin version    Display bbin version
+  bbin help       Display bbin help
+#+end_src
+
+Let's rewrite that to use =bb script=:
+
+#+begin_src text
+  bb script install         Install a script
+  bb script uninstall       Remove a script
+  bb script list-installed  List installed scripts
+  bb script help            Display bbin help
+#+end_src
+
+That actually looks kind of nice.
