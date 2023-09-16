@@ -4,9 +4,11 @@
    [babashka.cli :as cli]
    [teodorlu.bb-install.core :as core]))
 
-;; Ideas:
-;; 1. start fingerprinting the scripts
-;; 2. Be able to identify whether this is a script we've installed or not
+core/bb-shebang
+;; => "#!/usr/bin/env bb"
+
+core/fingerprint
+;; => {:teodorlu.bb-install/fingerprint "18acc212-3ae7-4603-9720-d1b615edc2bf"}
 
 (defn parsed-cmds+opts->raw-cmds [parsed-cmds+opts]
   (apply concat (:cmds parsed-cmds+opts)
