@@ -70,3 +70,13 @@ But it is not present on JVM clojure.
 *** Decision: don't use JVM REPL to develop, use bb repl.
 Why: I'm not sure I'm able to get this to work on the JVM.
 There are potential rabbit holes I don't want to go down.
+** Question: is =bb-install= the wrong name?
+Running =bb-install install= seems weird.
+Perhaps =bb-package=?
+We can test out that name too:
+
+#+begin_src shell
+bbin install . --as bb-pkg --main-opts '["-m" "teodorlu.bb-install/-main"]'
+#+end_src
+
+I think =bb pkg install= works quite well as a bb subcommand name too.
