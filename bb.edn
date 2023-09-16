@@ -1,5 +1,4 @@
-{:min-bb-version "0.9.162"
- :paths ["src"]
+{:paths ["src"]
  :deps {local/deps {:local/root "."}}
  :tasks {bbin {:requires ([babashka.bbin.cli :as bbin])
                :task (apply bbin/-main *command-line-args*)}
