@@ -1,0 +1,46 @@
+#+title: Teodor
+
+* 2023-09-16
+** =major-changes-experiment=: What, who, how, why?
+I spent some time digging into the bbin source code to understand what was happening when =bbin uninstall= crashed.
+I managed to "patch" over the problem I faced.
+No longer a stack trace thrown in the face of the user, and (in my case) correct behavior.
+
+However.
+
+1. I am confident that my "solution" is not the right way to solve this.
+   I wrapped all the old code in a try/catch, and fixed my specific issue.
+   This is not the right way to grow the code over time.
+2. I am not confident that I didn't cause any other issues with my change.
+   I might be catching too much.
+   And if the underlying behavior (inside the try block) does something I don't expect, further problems might rise.
+
+Could the underlying code be written in a simpler way?
+This is an experiment in order to achieve just that.
+
+*approach*:
+
+1. wrap the CLI in my own code.
+2. temporary name: =teodorlu.bb-install=.
+3. keep all the old code in the same repository as this.
+4. try deleting code I don't understand or don't want to take on in scope.
+
+Will this work?
+No idea.
+But I'm motivated to try.
+
+For now, crate a branch on my fork of the repository, named =major-changes-experiment=.
+Goals:
+
+1. See if I'm actually able to tackle this problem
+2. Try to provide a straightforward implementation of the current functionality.
+   1. Should be simple to understand
+   2. Should be simple to see if it is correct or not.
+3. Use it for myself
+4. Gradually try implementing the existing commands in a simpler manner.
+
+Open question: should I keep the existing data store, or not?
+I'm frankly not sure.
+I'm not sure I'll be able to do this.
+When I glance at the challenge, it seems hard.
+But the only way to find out if I'm able to do this is to try.
