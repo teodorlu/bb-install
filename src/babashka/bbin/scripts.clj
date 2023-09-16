@@ -108,6 +108,7 @@
       (throw-invalid-script summary cli-opts))))
 
 (defn install [cli-opts]
+  ;; (prn cli-opts)
   (if-not (:script/lib cli-opts)
     (util/print-help)
     (do
@@ -115,6 +116,13 @@
       (let [cli-opts' (util/canonicalized-cli-opts cli-opts)
             script (new-script cli-opts')]
         (p/install script)))))
+
+(comment
+  ;; example invocation:
+  (install
+   {:script/lib ".", :as "\"jals\"", :main-opts "\"[\\\"-m\\\" \\\"mikrobloggeriet.jals-cli\\\"]\""})
+  ;; note: the behavior of this call depends on the current working directory. So this can't be run from an arbitrary REPL.
+  )
 
 (defn- default-script [cli-opts]
   (reify
