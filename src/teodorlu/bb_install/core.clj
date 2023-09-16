@@ -25,7 +25,10 @@
          orelse)))
 
 (comment
-  (edn-read-string-orelse "{:x 1" ::invalid))
+  (= (edn-read-string-orelse "{:x 1" ::invalid)
+     ::invalid)
+  ;; => true
+  )
 
 (defn installed-script-file? [s]
   (let [[first-line second-line] (str/split-lines s)]
