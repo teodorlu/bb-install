@@ -19,18 +19,4 @@
                :task (exec 'babashka.bbin.test-runner/run-tests)}
          gen-script {:doc "Build the bbin script"
                      :requires ([babashka.bbin.gen-script :as gen-script])
-                     :task (gen-script/gen-script)}
-         render-templates {:requires ([clojure.string :as str]
-                                      [clojure.edn :as edn]
-                                      [selmer.parser :as p]
-                                      [selmer.util :refer [without-escaping]])
-                           :task (let [version (some-> (slurp "deps.edn") edn/read-string
-                                                       :aliases :neil :project :version)]
-                                   (without-escaping
-                                     (->> (p/render (slurp "templates/docs/installation.template.md")
-                                            {:version version})
-                                       (spit "docs/installation.md")))
-                                   (without-escaping
-                                     (->> (p/render (slurp "templates/README.template.md")
-                                                    {:version version})
-                                          (spit "README.md"))))}}}
+                     :task (gen-script/gen-script)}}}
