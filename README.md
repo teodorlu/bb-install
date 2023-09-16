@@ -1,4 +1,16 @@
-# bbin
+# `teodorlu.bb-install` - an experiment on top of bbin.
+
+⚠️ WARNING: THIS CODE IS NOT RECOMMENDED FOR PRODUCTION USE. ⚠
+
+You're looking at a work-in-process experiment on top of `babashka/bbin`.
+If you just want to install babashka script, please see the official bbin repository:
+
+https://github.com/babashka/bbin
+
+I track my progress in [teodor.org](teodor.org).
+
+⚠️ The rest of this README is copied verbatim from the original README.
+With my code changes, this README may give incorrect instructions. ⚠
 
 **Install any Babashka script or project with one command.**
 
