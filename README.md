@@ -12,30 +12,6 @@ I track my progress in [teodor.org](teodor.org).
 ⚠️ The rest of this README is copied verbatim from the original README.
 With my code changes, this README may give incorrect instructions. ⚠
 
-**Install any Babashka script or project with one command.**
-
-```
-$ bbin install io.github.babashka/neil
-{:lib io.github.babashka/neil,
- :coords
- {:git/url "https://github.com/babashka/neil",
-  :git/tag "v0.1.45",
-  :git/sha "0474d4cb5cfb0207265a4508a0e82ae7a293ab61"}}
-
-$ neil --version
-neil 0.1.45
-
-$ bbin install https://gist.githubusercontent.com/rads/da8ecbce63fe305f3520637810ff9506/raw/25e47ce2fb5f9a7f9d12a20423e801b64c20e787/portal.clj
-{:coords {:bbin/url "https://gist.githubusercontent.com/rads/da8ecbce63fe305f3520637810ff9506/raw/25e47ce2fb5f9a7f9d12a20423e801b64c20e787/portal.clj"}}
-
-# Open a Portal window with all installed scripts
-$ portal <(bbin ls)
-```
-
-📦 See the [**Scripts and Projects**](https://github.com/babashka/bbin/wiki/Scripts-and-Projects) wiki page for a list of CLI tools from the community. This list is just a starting point — any existing Babashka script or project can be installed out-of-the-box!
-
-📚 See the [**Usage**](#usage) and [**CLI**](#cli) docs for more examples of what `bbin` can do.
-
 ## Table of Contents
 
 - [Installation](#installation)
@@ -47,31 +23,15 @@ $ portal <(bbin ls)
 
 ## Installation
 
-### Homebrew (Linux and macOS)
+### Installing for local development
 
-**1. Install via `brew`:**
-```shell
-brew install babashka/brew/bbin
+Note: this requies a version of the original bbin (https://github.com/babashka/bbin) to bootstrap.
+
+From this folder, run:
+
+``` shell
+bbin install . --as bb-install --main-opts '["-m" "babashka.bbin.cli/-main"]'
 ```
-
-**2. Add `~/.babashka/bbin/bin` to `PATH`:**
-```shell
-echo 'export PATH="$PATH:$HOME/.babashka/bbin/bin"' >> ~/.$(basename $SHELL)rc && exec $SHELL
-```
-
-### Scoop (Windows)
-
-**1. Install `bbin` CLI:**
-```shell
-scoop bucket add scoop-clojure https://github.com/littleli/scoop-clojure
-scoop install bbin
-```
-
-The Scoop package will automatically update your `Path` with `%HOMEDRIVE%%HOMEPATH%\.babashka\bbin\bin`, but you will have to restart your terminal for this to take effect.
-
-### Manual (Linux, macOS, and Windows)
-
-[Click here for manual installation instructions.](docs/installation.md#manual-linux-and-macos)
 
 ## Usage
 
