@@ -30,7 +30,7 @@ Note: this requies a version of the original bbin (https://github.com/babashka/b
 From this folder, run:
 
 ``` shell
-bbin install . --as bb-install --main-opts '["-m" "teodorlu.bb-install/-main"]'
+bbin install . --as bb-install --main-opts '["-m" "teodorlu.bb-install.cli/-main"]'
 ```
 
 ## Usage

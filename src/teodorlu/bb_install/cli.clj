@@ -1,4 +1,4 @@
-(ns teodorlu.bb-install
+(ns teodorlu.bb-install.cli
   (:require
    [babashka.bbin.cli :as bbin]
    [babashka.cli :as cli]

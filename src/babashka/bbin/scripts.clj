@@ -108,7 +108,6 @@
       (throw-invalid-script summary cli-opts))))
 
 (defn install [cli-opts]
-  ;; (prn cli-opts)
   (if-not (:script/lib cli-opts)
     (util/print-help)
     (do
