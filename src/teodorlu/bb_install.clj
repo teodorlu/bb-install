@@ -1,8 +1,9 @@
 (ns teodorlu.bb-install
-  (:require [babashka.bbin.cli :as bbin]
-            [clojure.string :as str]
-            [clojure.edn :as edn]
-            [babashka.fs :as fs]))
+  (:require
+   [babashka.bbin.cli :as bbin]
+   [clojure.string :as str]
+   [clojure.edn :as edn]
+   [babashka.fs :as fs]))
 
 
 (defn ^:private edn-read-string-orelse [s orelse]
