@@ -1,22 +1,9 @@
 {:min-bb-version "0.9.162"
- :paths ["src" "test" "test-resources"]
+ :paths ["src"]
  :pods {org.babashka/fswatcher {:version "0.0.3"}}
  :deps {org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
                                  :git/sha "951b49b8c173244e66443b8188e3ff928a0a71e7"}
         local/deps {:local/root "."}}
  :tasks {bbin {:requires ([babashka.bbin.cli :as bbin])
                :task (apply bbin/-main *command-line-args*)}
-         ci {:doc "Run all CI tasks locally"
-             :requires ([taoensso.timbre :as log])
-             :task (do
-                     (log/info "bb run lint")
-                     (run 'lint)
-                     (log/info "bb run test")
-                     (run 'test))}
-         lint (shell "clj-kondo --lint .")
-         test {:depends [gen-script]
-               :requires ([babashka.bbin.test-runner])
-               :task (exec 'babashka.bbin.test-runner/run-tests)}
-         gen-script {:doc "Build the bbin script"
-                     :requires ([babashka.bbin.gen-script :as gen-script])
-                     :task (gen-script/gen-script)}}}
+         lint (shell "clj-kondo --lint .")}}
