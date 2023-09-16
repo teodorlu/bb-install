@@ -10,8 +10,8 @@
        (catch java.lang.RuntimeException _e
          orelse)))
 
-(def fingerprint {:teodorlu.bb-install/fingerprint "18acc212-3ae7-4603-9720-d1b615edc2bf"})
 (def bb-shebang "#!/usr/bin/env bb")
+(def fingerprint {:teodorlu.bb-install/fingerprint "18acc212-3ae7-4603-9720-d1b615edc2bf"})
 
 (comment
   (edn-read-string-orelse "{:x 1" ::invalid))
