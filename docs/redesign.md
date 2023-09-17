@@ -79,3 +79,13 @@ By reducing over the transaction log, we'll know:
 The transaction log would work nicely in combination with a command-based architecture.
 A transaction is simply a command that has been written down.
 Perhaps the transaction log needs two things --- both a _command has started_ message, and a _command has finished_ message.
+
+## Required work: understand how each of the existing procurers work.
+
+1. Does the procurer install with a single file, or with multiple files?
+
+2. Does the procurer support updates?
+   If yes, how?
+
+   1. Updates appears _not to_ be supported by `bbin 0.1.13`.
+      There is no update or upgrade subcommand.

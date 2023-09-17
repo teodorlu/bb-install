@@ -147,3 +147,14 @@ Questions I need to answer:
 - What is actually happening when a script is installed?
   Is it a single file for each type of script?
   Or is it more complex?
+** What does each procurer do?
+*** local-jar
+1. Creates a template for running local jar files
+2. Copies the jar file to =babashka/bbin/jars= (replacing existing)
+3. Creates a Clojure bb script shim specifically tailored to local jar files, that links the script to the jar file.
+
+=local-jar= refers back to =babahshka.bbin.jars= for information.
+** Observations
+1. =install= also does script templating.
+   It would be nice if this was separated out.
+   Consider composing Clojure core (in a do), instead of using Selmer.
