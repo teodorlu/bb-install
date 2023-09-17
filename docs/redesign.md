@@ -48,3 +48,34 @@ Proposed implementation:
     1. Start out by aiming to understand how `babashka/bbin` does it.
 
     2. Then consider how to do this.
+
+## Fingerprinting
+
+I believe it makes sense to fingerprint all files we install.
+With something like this:
+
+```clojure
+#!/usr/bin/env bb
+{:teodorlu.bb-install/fingerprint "18acc212-3ae7-4603-9720-d1b615edc2bf"}
+```
+
+**Why fingerprint scripts?**
+
+- Support safe uninstallation.
+  We shouldn't accidentally remove things we didn't install.
+
+- (possibly) support listing installed scripts.
+  Listing installed scripts could also be solved with a transaction log.
+
+## A transaction log
+
+An alternative to using the fingerprinted scripts themselves in order to build information about known installed scripts, is to keep a transaction log.
+By reducing over the transaction log, we'll know:
+
+1. All installed scripts
+2. All uninstalled scripts
+3. All other commands run by the system.
+
+The transaction log would work nicely in combination with a command-based architecture.
+A transaction is simply a command that has been written down.
+Perhaps the transaction log needs two things --- both a _command has started_ message, and a _command has finished_ message.
