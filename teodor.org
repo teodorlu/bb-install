@@ -137,3 +137,13 @@ That actually looks kind of nice.
 1. The existing functionality
 2. Without bugs
 3. In a shape that I can see that there are obviously no bugs.
+
+Which means:
+
+- I can fix the uninstall issue, so that it seems /obviously correct/.
+
+Questions I need to answer:
+
+- What is actually happening when a script is installed?
+  Is it a single file for each type of script?
+  Or is it more complex?
