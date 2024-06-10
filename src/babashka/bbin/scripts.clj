@@ -89,7 +89,21 @@
         (println (util/bold "Starting install..." cli-opts)))
       (let [cli-opts' (util/canonicalized-cli-opts cli-opts)
             script (new-script cli-opts')]
-        (p/install script)))))
+        (try
+          (p/install script)
+          (catch Exception raw-exception
+            (let [e (ex-data raw-exception)]
+              (case (:error e)
+                :babashka.bbin.scripts.common/main-opts-not-found
+                (do
+                  (println "Error: Main opts not found.")
+                  (println)
+                  (println "Use --main-opts MAIN-OPTS or :bbin/bin in `deps.edn` to provide main opts.")
+                  (System/exit 1))
+
+                ;; Cannot handle exception, re-throw.
+                (throw raw-exception)
+                ))))))))
 
 (defn- default-script [cli-opts]
   (reify

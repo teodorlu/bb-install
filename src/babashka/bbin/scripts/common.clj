@@ -326,7 +326,7 @@
                       (:main-opts script-config))
         _ (when (and (not tool-mode) (not (seq main-opts)))
             (throw (ex-info "Main opts not found. Use --main-opts or :bbin/bin to provide main opts."
-                            {})))
+                            {:error ::main-opts-not-found})))
         template-opts {:script/meta (->> script-edn-out
                                          str/split-lines
                                          (map #(str comment-char " " %))
