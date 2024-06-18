@@ -18,7 +18,7 @@
       (let [cli-opts' (bbin1.util/canonicalized-cli-opts cli-opts)
             script (bbin1.scripts/new-script cli-opts')]
         (try
-          (bbin1.protocols/instll script)
+          (bbin1.protocols/install script)
           (catch Exception raw-exception
             (let [e (ex-data raw-exception)]
               (case (:error e)
