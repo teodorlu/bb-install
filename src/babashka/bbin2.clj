@@ -1,10 +1,11 @@
 (ns babashka.bbin2
   (:require
    [babashka.cli :as cli]
-   [babashka.bbin.scripts :as scripts]))
+   [babashka.bbin.scripts :as bbin1.scripts]
+   [babashka.bbin2.install :as install]))
 
 (defn cmd-install [opts]
-  (scripts/install opts))
+  )
 
 (def dispatch-table
   [{:cmds ["install"] :fn cmd-install}])
