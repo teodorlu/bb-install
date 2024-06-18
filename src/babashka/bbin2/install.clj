@@ -29,11 +29,32 @@
             ))))))
 
 (defn parse-opts [args+opts]
-  (let [script-lib (:script/lib (:opts args+opts))]
+  (let [script-lib (:script/lib (:opts args+opts))
+        script-name (or (:as (:opts args+opts))
+                        (:script/name (:opts args+opts)))]
     (if-not script-lib
-      nil ; we can't do anything
+      nil ; invalid args+opts, return nil.
 
-      (cond-> {:script/lib script-lib}))))
+      (cond-> {:script/lib script-lib}
+
+        (:local/root (:opts args+opts))
+        (assoc :local/root (:local/root (:opts args+opts)))
+
+        ;; --as mybin can be used to control where the script is installed.
+        ;;
+        ;; Example:
+        ;;
+        ;;   bbin2 install . --as script2
+        ;;
+        ;; I'd perfer if this was called `:script/name` or something a bit
+        ;; longer, at least when we refer to it in code. `:as` is often used in
+        ;; `require` forms.
+        ;;
+        ;; For now, we keep the current behavior exactly as-is.
+        script-name
+        (assoc :as script-name)
+
+        #_ ""))))
 
 (defn cmd-install [args+opts]
   (if-let [opts (parse-opts args+opts)]
