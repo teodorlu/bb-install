@@ -61,23 +61,22 @@
   (str/trim "
 bbin install [script]
 
-- By default, scripts will be installed to `~/.local/bin`
-    - If `$BABASHKA_BBIN_BIN_DIR` is set, then use `$BABASHKA_BBIN_BIN_DIR` (explicit override)
-- Each bin script is a self-contained shell script that fetches deps and invokes `bb` with the correct arguments.
-- The bin scripts can be configured using the CLI options or the `:bbin/bin` key in `bb.edn`
-- [See the FAQ for additional info on setting up your code to work with bbin](docs/faq.md#how-do-i-get-my-software-onto-bbin)
+By default, scripts are installed to `~/.local/bin`. The bin scripts can be
+configured using the CLI options or the `:bbin/bin` key in `bb.edn`.
 
-**Example `bb.edn` Config:**
+EXAMPLE `bb.edn` CONFIG
 
 ```clojure
 {:bbin/bin {neil {:main-opts [\"-f\" \"neil\"]}}}
 ```
 
-**Supported Options:**
+SUPPORTED OPTIONS
 
-*Note:* `bbin` will throw an error if conflicting options are provided, such as using both `--git/sha` and `--mvn/version` at the same time.
+`bbin` throws an error if conflicting options are provided, such as setting both
+`--git/sha` and `--mvn/version`.
 
-If no `--git/tag` or `--git/sha` is provided, the latest tag from the Git repo will be used. If no tags exist, the latest SHA will be used.
+If neither `--git/tag` or `--git/sha` is provided, the latest tag from the Git
+repo is used. If no tags exist, the latest SHA will be used.
 
 - `--as`
     - The name of the script to be saved in the `bbin bin` path
