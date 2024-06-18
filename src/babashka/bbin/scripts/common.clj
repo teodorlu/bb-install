@@ -298,7 +298,7 @@
                   {:coords {:bbin/url (str "file://" (get-in header [:coords :local/root]))}}
                   header)
         _ (when-not (#{::no-lib} lib)
-            (bbin-deps/add-deps {:deps script-deps}))
+            (bbin-deps/try-add-deps {:deps script-deps}))
         script-root (fs/canonicalize (or (get-in header [:coords :local/root])
                                          (local-lib-path script-deps))
                                      {:nofollow-links true})

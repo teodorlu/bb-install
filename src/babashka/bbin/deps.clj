@@ -6,13 +6,20 @@
             [clojure.string :as str]
             [clojure.tools.gitlibs.impl :as gitlibs-impl]))
 
-(defn add-deps
-  "Lazy wrapper for `babashka.deps/add-deps`
+(defn try-add-deps
+  "Optimistic wrapper for `babashka.deps/add-deps`
+
+  If `babashka.deps/add-deps` is not found, does nothing, then returns nil.
 
   By using this `add-lib`, we can run the rest of `bbin`'s source from a JVM
   REPL, as `babashka.deps` is bb only."
   [& args]
-  (apply (requiring-resolve 'babashka.deps/add-deps) args))
+  (try
+    (apply (requiring-resolve 'babashka.deps/add-deps) args)
+    (catch java.io.FileNotFoundException _
+      ;; babashka.deps/add-deps is not available on the JVM
+      ;; But this is not strictly needed for bbin, so it can be a noop on the JVM.
+      nil)))
 
 (def lib-opts->template-deps-fn
   "A map to define valid CLI options.
