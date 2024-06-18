@@ -1,9 +1,11 @@
 (ns babashka.bbin2.install
   (:require
-   [babashka.bbin.scripts :as bbin1.scripts]
+   [babashka.bbin.scripts :as bbin1.scripts] ; does not support JVM Clojure
    [babashka.bbin.util :as bbin1.util]
    [babashka.bbin.dirs :as bbin1.dirs]
    [babashka.bbin.protocols :as bbin1.protocols]))
+
+
 
 (defn install [cli-opts]
   (if-not (:script/lib cli-opts)
@@ -16,7 +18,7 @@
       (let [cli-opts' (bbin1.util/canonicalized-cli-opts cli-opts)
             script (bbin1.scripts/new-script cli-opts')]
         (try
-          (bbin1.protocols/install script)
+          (bbin1.protocols/instll script)
           (catch Exception raw-exception
             (let [e (ex-data raw-exception)]
               (case (:error e)
