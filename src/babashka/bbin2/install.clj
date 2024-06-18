@@ -75,39 +75,39 @@ SUPPORTED OPTIONS
 `bbin` throws an error if conflicting options are provided, such as setting both
 `--git/sha` and `--mvn/version`.
 
-If neither `--git/tag` or `--git/sha` is provided, the latest tag from the Git
-repo is used. If no tags exist, the latest SHA will be used.
+If neither `--git/tag` or `--git/sha` is set, the latest tag from the Git
+repo is installed. If no tags exist, the latest SHA is installed.
 
-`--as`          Local script name
+  --as           Local script name
 
-`--git/sha`     Git SHA for the Git repo the script is installed from
+  --git/sha      Git SHA for the Git repo the script is installed from
 
-`--git/tag`     Git tag for the Git repo the script is installed from
+  --git/tag      Git tag for the Git repo the script is installed from
 
-`--git/url`     The URL for a Git repo
+  --git/url      The URL for a Git repo
 
-`--latest-sha`  If provided, find the latest SHA from the Git repo
+  --latest-sha   If provided, find the latest SHA from the Git repo
 
-`--local/root`  The path of a local directory containing a `deps.edn` file
+  --local/root   The path of a local directory containing a `deps.edn` file
 
-`--main-opts`   The provided options (EDN format) will be passed to the `bb`
-                command-line when the installed script is run. By default,
-                `--main-opts` will be set to `[\"-m\" ...]`, inferring the main
-                function from the lib name. For example, if you provide a lib
-                name like `io.github.rads/watch`, `bbin` will infer
-                `rads.watch/-main`. Project authors can provide a default in the
-                `:bbin/bin` key in `bb.edn`.
+  --main-opts    The provided options (EDN format) will be passed to the `bb`
+                 command-line when the installed script is run. By default,
+                 `--main-opts` will be set to `[\"-m\" ...]`, inferring the main
+                 function from the lib name. For example, if you provide a lib
+                 name like `io.github.rads/watch`, `bbin` will infer
+                 `rads.watch/-main`. Project authors can provide a default in the
+                 `:bbin/bin` key in `bb.edn`.
 
-`--mvn/version` The version of a Maven dependency
+  --mvn/version  The version of a Maven dependency
 
-`--ns-default`  The namespace to use to find functions (tool mode only) Project
-                authors can provide a default in the `:bbin/bin` key in `bb.edn`
+  --ns-default   The namespace to use to find functions (tool mode only) Project
+                 authors can provide a default in the `:bbin/bin` key in `bb.edn`
 
-`--tool`        If this option is provided, the script will be installed using
-                **tool mode** When enabled, the installed script acts as an
-                entry point for functions in a namespace, similar to `clj -T` If
-                no function is provided, the installed script will infer a help
-                message based on the function docstrings
+  --tool         If this option is provided, the script will be installed using
+                 **tool mode** When enabled, the installed script acts as an
+                 entry point for functions in a namespace, similar to `clj -T` If
+                 no function is provided, the installed script will infer a help
+                 message based on the function docstrings
 "))
 
 (defn cmd-install [args+opts]
