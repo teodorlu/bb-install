@@ -71,9 +71,10 @@
             (println)
             (util/print-scripts (util/printable-scripts {script-name header})
                                 cli-opts)
-            (println)
-            (println (util/bold "Install complete." cli-opts))
-            (println)))
+            (when-not (:bbin2 cli-opts)
+              (println)
+              (println (util/bold "Install complete." cli-opts))
+              (println))))
         nil))))
 
 (defn- generate-deps-lib-name [git-url]

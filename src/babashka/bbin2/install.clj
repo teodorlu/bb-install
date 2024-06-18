@@ -4,17 +4,17 @@
    [babashka.bbin.protocols :as bbin1.protocols]
    [babashka.bbin.scripts :as bbin1.scripts]
    [babashka.bbin.util :as bbin1.util]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [babashka.fs :as fs]))
 
 (defn install [cli-opts]
   (bbin1.dirs/ensure-bbin-dirs cli-opts)
-  (when-not (bbin1.util/edn? cli-opts)
-    (println)
-    (println (bbin1.util/bold "Starting install..." cli-opts)))
-  (let [cli-opts' (bbin1.util/canonicalized-cli-opts cli-opts)
-        script (bbin1.scripts/new-script cli-opts')]
+  (println (bbin1.util/bold "Starting install..." cli-opts))
+  (let [script (bbin1.scripts/new-script cli-opts)]
     (try
       (bbin1.protocols/install script)
+      (println)
+      (println (bbin1.util/bold "Install complete." cli-opts))
       (catch Exception raw-exception
         (let [e (ex-data raw-exception)]
           (case (:error e)
@@ -32,16 +32,23 @@
 (defn parse-opts [args+opts]
   (let [script-lib (:script/lib (:opts args+opts))]
     (when script-lib
-      (select-keys (:opts args+opts)
-                   [:script/lib
-                    :as
-                    :git/sha :git/tag :git/url
-                    :latest-sha
-                    :local/root
-                    :main-opts
-                    :mvn/version
-                    :ns-default
-                    :tool]))))
+      (cond->
+       (select-keys (:opts args+opts)
+                    [:script/lib
+                     :as
+                     :git/sha :git/tag :git/url
+                     :latest-sha
+                     :local/root
+                     :main-opts
+                     :mvn/version
+                     :ns-default
+                     :tool])
+
+        (:local/root (:opts args+opts))
+        (update :local/root #(str fs/canonicalize % {:nofollow-links true}))
+
+        true
+        (assoc :bbin2 true)))))
 
 (def install-helptext
   (str/trim "
