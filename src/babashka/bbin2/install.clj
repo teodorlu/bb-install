@@ -32,23 +32,18 @@
 (defn parse-opts [args+opts]
   (let [script-lib (:script/lib (:opts args+opts))]
     (when script-lib
-      (cond->
-       (select-keys (:opts args+opts)
-                    [:script/lib
-                     :as
-                     :git/sha :git/tag :git/url
-                     :latest-sha
-                     :local/root
-                     :main-opts
-                     :mvn/version
-                     :ns-default
-                     :tool])
-
-        (:local/root (:opts args+opts))
-        (update :local/root #(str fs/canonicalize % {:nofollow-links true}))
-
-        true
-        (assoc :bbin2 true)))))
+      (merge {:bbin2 true}
+             (select-keys (:opts args+opts)
+                          [:script/lib
+                           :as
+                           :git/sha :git/tag :git/url
+                           :latest-sha
+                           :main-opts
+                           :mvn/version
+                           :ns-default
+                           :tool])
+             (when (:local/root (:opts args+opts))
+               {:local/root #(str fs/canonicalize % {:nofollow-links true})})))))
 
 (def install-helptext
   (str/trim "
