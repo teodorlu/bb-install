@@ -14,7 +14,7 @@
       (println "  " (str/join " " (:cmds row))))))
 
 (def dispatch-table
-  [{:cmds ["install"] :fn babashka.bbin2.install/install :args->opts [:script/lib]}
+  [{:cmds ["install"] :fn babashka.bbin2.install/cmd-install :args->opts [:script/lib]}
    {:cmds []          :fn help}])
 
 (defn -main [& args]

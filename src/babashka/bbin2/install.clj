@@ -5,29 +5,31 @@
    [babashka.bbin.scripts :as bbin1.scripts]
    [babashka.bbin.util :as bbin1.util]))
 
-(defn install [{:keys [script-lib]}]
-  (let [cli-opts {:script/lib script-lib}]
-    (bbin1.dirs/ensure-bbin-dirs {:script/lib script-lib})
-    (when-not (bbin1.util/edn? {:script/lib script-lib})
-      (println)
-      (println (bbin1.util/bold "Starting install..." {:script/lib script-lib})))
-    (let [cli-opts' (bbin1.util/canonicalized-cli-opts cli-opts)
-          script (bbin1.scripts/new-script cli-opts')]
-      (try
-        (bbin1.protocols/install script)
-        (catch Exception raw-exception
-          (let [e (ex-data raw-exception)]
-            (case (:error e)
-              :babashka.bbin.scripts.common/main-opts-not-found
-              (do
-                (println "Error: Main opts not found.")
-                (println)
-                (println "Use --main-opts MAIN-OPTS or :bbin/bin in `deps.edn` to provide main opts.")
-                (System/exit 1))
+(defn install [cli-opts]
+  (if-not (:script/lib cli-opts)
+    (bbin1.util/print-help)
+    (do
+      (bbin1.dirs/ensure-bbin-dirs cli-opts)
+      (when-not (bbin1.util/edn? cli-opts)
+        (println)
+        (println (bbin1.util/bold "Starting install..." cli-opts)))
+      (let [cli-opts' (bbin1.util/canonicalized-cli-opts cli-opts)
+            script (bbin1.scripts/new-script cli-opts')]
+        (try
+          (bbin1.protocols/install script)
+          (catch Exception raw-exception
+            (let [e (ex-data raw-exception)]
+              (case (:error e)
+                :babashka.bbin.scripts.common/main-opts-not-found
+                (do
+                  (println "Error: Main opts not found.")
+                  (println)
+                  (println "Use --main-opts MAIN-OPTS or :bbin/bin in `deps.edn` to provide main opts.")
+                  (System/exit 1))
 
-              ;; Cannot handle exception, re-throw.
-              (throw raw-exception)
-              )))))))
+                ;; Cannot handle exception, re-throw.
+                (throw raw-exception)
+                ))))))))
 
 (defn parse-opts [args+opts]
   (let [script-lib (:script/lib (:opts args+opts))]
