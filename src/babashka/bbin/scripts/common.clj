@@ -3,7 +3,6 @@
             [babashka.bbin.dirs :as dirs]
             [babashka.bbin.specs]
             [babashka.bbin.util :as util :refer [sh]]
-            [babashka.deps :as deps]
             [babashka.fs :as fs]
             [clojure.edn :as edn]
             [clojure.main :as main]
@@ -299,7 +298,7 @@
                   {:coords {:bbin/url (str "file://" (get-in header [:coords :local/root]))}}
                   header)
         _ (when-not (#{::no-lib} lib)
-            (deps/add-deps {:deps script-deps}))
+            (bbin-deps/add-deps {:deps script-deps}))
         script-root (fs/canonicalize (or (get-in header [:coords :local/root])
                                          (local-lib-path script-deps))
                                      {:nofollow-links true})
