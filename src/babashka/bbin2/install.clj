@@ -5,8 +5,6 @@
    [babashka.bbin.dirs :as bbin1.dirs]
    [babashka.bbin.protocols :as bbin1.protocols]))
 
-
-
 (defn install [cli-opts]
   (if-not (:script/lib cli-opts)
     (bbin1.util/print-help)
