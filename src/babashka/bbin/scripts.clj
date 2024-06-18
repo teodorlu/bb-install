@@ -66,7 +66,7 @@
                      :procurer procurer
                      :artifact artifact}))))
 
-(defn- new-script [cli-opts]
+(defn new-script [cli-opts]
   (let [summary (bbin-deps/summary cli-opts)
         {:keys [procurer artifact]} summary]
     (case [procurer artifact]
