@@ -6,6 +6,14 @@
             [clojure.string :as str]
             [clojure.tools.gitlibs.impl :as gitlibs-impl]))
 
+(defn add-lib
+  "Lazy wrapper for `babashka.deps/add-lib`
+
+  By using this `add-lib`, we can run the rest of `bbin`'s source from a JVM
+  REPL, as `babashka.deps/add-lib` is bb only."
+  [& args]
+  (apply (requiring-resolve 'babashka.deps/add-lib) args))
+
 (def lib-opts->template-deps-fn
   "A map to define valid CLI options.
 
