@@ -1,4 +1,4 @@
-(ns babashka.bbin.configuration
+(ns babashka.bbin2.configuration
   "A bbin config is a collection of user choices for a bbin command
 
   This namespace is intended to encapsulate the choices that need to be made
