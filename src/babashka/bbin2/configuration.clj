@@ -18,8 +18,7 @@
 
 ;; Namespace status: DRAFT.
 ;;
-;; Extracting "configuration" from `bbin` would require quite a few changes
-;; throughout the code.
+;; `bbin` relies heavily on seding a `cli-opts` map around.
 
 (defn infer-is-tty []
   (zero? (:exit @(process/process ["test" "-t" 1]
@@ -32,8 +31,8 @@
   parameters are passed as arguments."
   [cli-opts environment is-tty is-windows]
   (merge
-   {:bbin.configuration/is-tty? is-tty
-    :bbin.configuration/no-color? (or (false? (:color cli-opts))
+   {:bbin2.configuration/is-tty? is-tty
+    :bbin2.configuration/no-color? (or (false? (:color cli-opts))
                                       is-windows
                                       (:plain cli-opts)
                                       (not is-tty)
@@ -51,7 +50,7 @@
     #_ "..."))
 
 (defn is-tty? [conf]
-  (get conf :bbin.configuration/is-tty?))
+  (get conf :bbin2.configuration/is-tty?))
 
 (defn no-color? [conf]
-  (get conf :bbin.configuration/no-color?))
+  (get conf :bbin2.configuration/no-color?))
