@@ -16,6 +16,11 @@
   (:require [babashka.process :as process]
             [babashka.fs :as fs]))
 
+;; Namespace status: DRAFT.
+;;
+;; Extracting "configuration" from `bbin` would require quite a few changes
+;; throughout the code.
+
 (defn infer-is-tty []
   (let [fd 1 key :out]
     (-> ["test" "-t" (str fd)]
@@ -24,41 +29,25 @@
         :exit
         (= 0))))
 
-(defn create-configuration [cli-opts environment is-tty]
+(defn create-configuration [cli-opts environment is-tty is-windows]
   {:bbin.configuration/is-tty? is-tty
    :bbin.configuration/no-color? (or (false? (:color cli-opts))
-                                     (fs/windows?)
+                                     is-windows
                                      (:plain cli-opts)
                                      (not is-tty)
                                      (get environment "NO_COLOR")
                                      (= "dumb" (get environment "TERM")))})
+
+(comment
+  (let [cli-opts {}
+        conf (create-configuration cli-opts (System/getenv) (infer-is-tty) (fs/windows?))]
+    ;; now the configuration can be used like this:
+    (babashka.bbin.configuration/is-tty? conf)
+    (babashka.bbin.configuration/no-color? conf)
+    #_ "..."))
 
 (defn is-tty? [conf]
   (get conf :bbin.configuration/is-tty?))
 
 (defn no-color? [conf]
   (get conf :bbin.configuration/no-color?))
-
-(comment
-  ;; incomplete, a draft
-
-  (defn create-configuration [cli-opts environment is-tty])
-
-  ;; the idea is to let the toplevel main create a configuration by providing
-  ;; the side-effecting stuff on the top level, ie
-
-  (fn [cli-opts]
-    (let [configuration (create-configuration cli-opts (System/getenv) (infer-is-tty))]
-      ,,,,))
-
-  ;; then use accessor functions to pull things out,
-
-  (require '[babashka.bbin.configuration :as configuration])
-  (fn [cli-opts]
-    (let [conf (create-configuration cli-opts (System/getenv) (infer-is-tty))]
-      (configuration/is-tty? conf)
-      (configuration/no-color? conf)
-      ,,,,))
-
-
-  )
