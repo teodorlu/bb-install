@@ -22,12 +22,8 @@
 ;; throughout the code.
 
 (defn infer-is-tty []
-  (let [fd 1 key :out]
-    (-> ["test" "-t" (str fd)]
-        (process/process {key :inherit :env {}})
-        deref
-        :exit
-        (= 0))))
+  (zero? (:exit @(process/process ["test" "-t" 1]
+                                  {:out :inherit :env {}}))))
 
 (defn create-configuration
   "Create the whole configuration in one place.
