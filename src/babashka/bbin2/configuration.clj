@@ -46,8 +46,8 @@
   (let [cli-opts {}
         conf (create-configuration cli-opts (System/getenv) (infer-is-tty) (fs/windows?))]
     ;; now the configuration can be used like this:
-    (babashka.bbin.configuration/is-tty? conf)
-    (babashka.bbin.configuration/no-color? conf)
+    (babashka.bbin2.configuration/is-tty? conf)
+    (babashka.bbin2.configuration/no-color? conf)
     #_ "..."))
 
 (defn is-tty? [conf]
