@@ -29,14 +29,22 @@
         :exit
         (= 0))))
 
-(defn create-configuration [cli-opts environment is-tty is-windows]
-  {:bbin.configuration/is-tty? is-tty
-   :bbin.configuration/no-color? (or (false? (:color cli-opts))
-                                     is-windows
-                                     (:plain cli-opts)
-                                     (not is-tty)
-                                     (get environment "NO_COLOR")
-                                     (= "dumb" (get environment "TERM")))})
+(defn create-configuration
+  "Create the whole configuration in one place.
+
+  `create-configuration` should not do any side effects, all configuration
+  parameters are passed as arguments."
+  [cli-opts environment is-tty is-windows]
+  (merge
+   {:bbin.configuration/is-tty? is-tty
+    :bbin.configuration/no-color? (or (false? (:color cli-opts))
+                                      is-windows
+                                      (:plain cli-opts)
+                                      (not is-tty)
+                                      (get environment "NO_COLOR")
+                                      (= "dumb" (get environment "TERM")))}
+   (when-let [local-root (:local/root cli-opts)]
+     {:local/root (str (fs/canonicalize local-root {:nofollow-links true}))})))
 
 (comment
   (let [cli-opts {}
