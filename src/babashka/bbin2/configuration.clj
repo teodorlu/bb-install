@@ -33,11 +33,11 @@
   (merge
    {:bbin2.configuration/is-tty? is-tty
     :bbin2.configuration/no-color? (or (false? (:color cli-opts))
-                                      is-windows
-                                      (:plain cli-opts)
-                                      (not is-tty)
-                                      (get environment "NO_COLOR")
-                                      (= "dumb" (get environment "TERM")))}
+                                       is-windows
+                                       (:plain cli-opts)
+                                       (not is-tty)
+                                       (get environment "NO_COLOR")
+                                       (= "dumb" (get environment "TERM")))}
    (when-let [local-root (:local/root cli-opts)]
      {:local/root (str (fs/canonicalize local-root {:nofollow-links true}))})))
 
